@@ -30,7 +30,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const TripPage = ({ initialData }: { initialData: { trip: Trip } }) => {
+const TripPage = ({
+  initialData = {
+    trip: { title: 'Loading', pictures: [], id: 0, created_at: '' },
+  },
+}: {
+  initialData: { trip: Trip };
+}) => {
   const router = useRouter();
   const { trip_id: tripId } = router.query;
 
