@@ -19,10 +19,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <meta
-            name="google-site-verification"
-            content="NRxEEOcQFFgZsHEu39yfQ2UJUX69eNfZof1JrPybwlo"
-          />
+          <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
           <meta property="og:type" content="website" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:creator" content="@zaratan" />

@@ -1,9 +1,10 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import Layout from '../../components/Layout';
 import PictureCard from '../../components/PictureCard';
+import PictureModal from '../../components/PictureModal';
 import Trip from '../../types/Trip';
 import { fetchTrips } from '../api/trips';
 import { fetchTrip } from '../api/trips/[trip_id]';
@@ -48,9 +49,16 @@ const TripPage = ({
     refreshInterval: 10,
     revalidateOnMount: true,
   });
-
+  const [newPictureModalOpen, setNewPictureModalOpen] = useState(false);
+  const toggleNewPictureModal = () => {
+    setNewPictureModalOpen(!newPictureModalOpen);
+  };
   return (
-    <Layout title={trip.title}>
+    <Layout
+      title={trip.title}
+      buttonText="Add picture"
+      buttonAction={toggleNewPictureModal}
+    >
       <div className="bg-white">
         <div className="mx-auto py-2 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-4">
           <div className="space-y-12">
@@ -69,6 +77,12 @@ const TripPage = ({
           </div>
         </div>
       </div>
+      <PictureModal
+        modalOpen={newPictureModalOpen}
+        toggleModal={toggleNewPictureModal}
+        tripId={Number(tripId)}
+        fireMutation={mutate}
+      />
     </Layout>
   );
 };

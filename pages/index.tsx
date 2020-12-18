@@ -1,6 +1,8 @@
 import { GetStaticProps } from 'next';
+import { useState } from 'react';
 import useSWR from 'swr';
 import Layout from '../components/Layout';
+import TripModal from '../components/TripModal';
 import TripCard from '../components/TripCard';
 import Trip from '../types/Trip';
 import { fetchTrips } from './api/trips';
@@ -26,8 +28,17 @@ export default function Home({
     refreshInterval: 10,
     revalidateOnMount: true,
   });
+
+  const [newTripModalOpen, setNewTripModalOpen] = useState(false);
+  const toggleNewTripModal = () => {
+    setNewTripModalOpen(!newTripModalOpen);
+  };
   return (
-    <Layout title="Trips">
+    <Layout
+      title="Trips"
+      buttonText="New trip"
+      buttonAction={toggleNewTripModal}
+    >
       <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="absolute inset-0">
           <div className="bg-white h-1/3 sm:h-2/3" />
@@ -49,6 +60,10 @@ export default function Home({
           </div>
         </div>
       </div>
+      <TripModal
+        modalOpen={newTripModalOpen}
+        toggleModal={toggleNewTripModal}
+      />
     </Layout>
   );
 }
